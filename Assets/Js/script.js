@@ -14,7 +14,6 @@ var formSubmitHandler = function(event) {
         alert("Please enter a valid City")
     }
     console.log(event);
-    debugger;
 };
 var addToHistory = function() {
     var historyDisplayEl = document.createElement("<div>");
