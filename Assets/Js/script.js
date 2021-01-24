@@ -1,6 +1,6 @@
 var searchBox = document.querySelector("#search-box")
 var cityInputEl = document.querySelector("#city");
-var weatherContainerEl = document.queerySelector("#weather-container")
+var weatherContainerEl = document.querySelector("#weather-container")
 var weatherSearchTerm = document.querySelector("#city-search-term")
 
 var formSubmitHandler = function(event) {
@@ -16,7 +16,7 @@ var formSubmitHandler = function(event) {
 };
 
 var getWeather = function (city) {
-    var apiUrl = "api.openweathermap.org/data/2.5/forecast?q=Madison&appid=863fa8c9dd8dd40d83d3a86ebf49c433";
+    var apiUrl = "api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=863fa8c9dd8dd40d83d3a86ebf49c433";
 
     fetch(apiUrl)
         .then(function(response) {
@@ -58,6 +58,12 @@ var displayWeather = function (weather, searchTerm) {
     uvEl.classList= "uv"
 
     //append to the container
-    
+    weatherEl.appendChild(tempEl);
+    weatherEl.appendChild(humidEl);
+    weatherEl.appendChild(windEl);
+    weatherEl.appendChild(uvEl);
 
+    //append container to dom
+    weatherContainerEl.appendChild(weatherEl);
 }
+searchBox.addEventListener("submit", formSubmitHandler);
