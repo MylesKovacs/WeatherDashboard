@@ -2,6 +2,7 @@ var searchTerm = document.querySelector("#search-box");
 var cityInputEl = document.querySelector("#city");
 var weatherContainerEl = document.querySelector("#weather-container");
 var weatherSearchTerm = document.querySelector("#city-search-term");
+var weatherEl = document.querySelector("#weather")
 var historyContainerEl = document.querySelector("#history-container")
 
 var formSubmitHandler = function(event) {
@@ -43,47 +44,54 @@ var getWeather = function (city) {
     localStorage.setItem("city", JSON.stringify(apiUrl));   
 };
 
-var displayWeather = function (weather, searchTerm) {
-    weatherContainerEl.textContent = "";
+var displayWeather = function (list, searchTerm) {
     weatherSearchTerm.textContent = searchTerm;
-    
+for (var i = 0; i < list.length; i++) { 
     //create container for values
-    var weatherEl = document.createElement("<div>");
-    weatherEl.classList = "list-container";
+    var weatherContainerEl = document.createElement("div");
+    weatherContainerEl.classList = "list-container";
 
     //create temp element 
-    var tempEl = document.createElement("<p>") 
+    var tempEl = document.createElement("p") 
+    tempEl.textContent = list[i].main.temp
     tempEl.classList = "temperature list-item";
 
     //create humidity element
-    var humidEl = document.createElement("<p>");
+    var humidEl = document.createElement("p");
+    humidEl.textContent = list[i].main.humidity
     humidEl.classList= "humidity list-item"
 
     //create wind element
-    var windEl = document.createElement("<p>");
+    var windEl = document.createElement("p");
+    windEl.textContent = list[i].wind.speed
     windEl.classList= "wind list-item"
 
     //create UV element
-    var uvEl = document.createElement("<p>"); {
-        if (uv < 2) {
-            classList="bg-success"
-        } 
-        if (uv < 5) {
-            classList="bg-warning"
-        }
-        if (uv > 5) (
-            classList="bg-danger"
-        )
-    }
-    uvEl.classList= "uv list-item"
+    //var uvEl = document.createElement("p");
+    //uvEl.textContent= 
+    
+    //{
+        
+        //if (uv < 2) {
+        //    classList="bg-success"
+        //} 
+        //if (uv < 5) {
+        //    classList="bg-warning"
+        //}
+        //if (uv > 5) (
+        //    classList="bg-danger"
+        //)
+    //}
+    //uvEl.classList= "uv list-item"
 
     //append to the container
-    weatherEl.appendChild(tempEl);
-    weatherEl.appendChild(humidEl);
-    weatherEl.appendChild(windEl);
-    weatherEl.appendChild(uvEl);
+    weatherContainerEl.appendChild(tempEl);
+    weatherContainerEl.appendChild(humidEl);
+    weatherContainerEl.appendChild(windEl);
+    //weatherContainerEl.appendChild(uvEl);
 
     //append container to dom
     weatherContainerEl.appendChild(weatherEl);
+};
 };
 searchTerm.addEventListener("submit", formSubmitHandler);
