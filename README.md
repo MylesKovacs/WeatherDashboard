@@ -7,7 +7,7 @@ This is a weather dashboard that allows for searching a city to receive forecase
 ## Built With
 * HTML
 * JavaScript
-* CSS
+* CSS(Currently lacking due to wanting to focus more on JS in time I had remaining)
 
 ## Website
 https://myleskovacs.github.io/WeatherDashboard/
