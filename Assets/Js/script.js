@@ -32,7 +32,7 @@ var getWeather = function (city) {
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
-                    displayWeather(data.weather);
+                    displayWeather(data);
                 });
             } else {
                 alert("Error " + response.statusText);
@@ -44,30 +44,34 @@ var getWeather = function (city) {
     localStorage.setItem("city", JSON.stringify(apiUrl));   
 };
 
-var displayWeather = function (list, searchTerm) {
+var displayWeather = function (data, cityInputEl) {
     weatherSearchTerm.textContent = searchTerm;
-for (var i = 0; i < list.length; i++) { 
+    console.log(searchTerm);
+for (var i = 0; i < data.list.length; i++) { 
+    if (data.list[i].dt_txt.indexOf("15:00:00") !== -1) {
     //create container for values
     var weatherContainerEl = document.createElement("div");
     weatherContainerEl.classList = "list-container";
 
     //create temp element 
     var tempEl = document.createElement("p") 
-    tempEl.textContent = list[i].main.temp
+    tempEl.textContent = data.list[i].main.temp
+    console.log(tempEl);
     tempEl.classList = "temperature list-item";
 
     //create humidity element
     var humidEl = document.createElement("p");
-    humidEl.textContent = list[i].main.humidity
+    humidEl.textContent = data.list[i].main.humidity
+    console.log(humidEl);
     humidEl.classList= "humidity list-item"
 
     //create wind element
     var windEl = document.createElement("p");
-    windEl.textContent = list[i].wind.speed
+    windEl.textContent = data.list[i].wind.speed
     windEl.classList= "wind list-item"
 
     //create UV element
-    //var uvEl = document.createElement("p");
+    var uvEl = document.createElement("p");
     //uvEl.textContent= 
     
     //{
@@ -82,7 +86,7 @@ for (var i = 0; i < list.length; i++) {
         //    classList="bg-danger"
         //)
     //}
-    //uvEl.classList= "uv list-item"
+    uvEl.classList= "uv list-item"
 
     //append to the container
     weatherContainerEl.appendChild(tempEl);
@@ -91,7 +95,8 @@ for (var i = 0; i < list.length; i++) {
     //weatherContainerEl.appendChild(uvEl);
 
     //append container to dom
-    weatherContainerEl.appendChild(weatherEl);
+    weatherEl.appendChild(weatherContainerEl);
+    }
 };
 };
 searchTerm.addEventListener("submit", formSubmitHandler);
